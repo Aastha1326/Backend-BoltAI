@@ -24,21 +24,22 @@ app.post('/build', (req, res) => {
   const assetName = req.body.assetName; 
 
 const prompt =
-  "You are an experienced financial analyst. Analyze the asset: \"" + assetName + "\" " +
-  "— it may be a company, stock, or cryptocurrency. Use only verified and public data.\n\n" +
+  "You are an expert quantitative trader and financial analyst. Analyze the asset: \"" + assetName +
+  "\" — it may be a stock, index, or cryptocurrency.\n\n" +
 
-  "Give a short, structured financial report covering:\n" +
-  "1. **Overview** – Category, sector, brief description.\n" +
-  "2. **Past Performance** – Key price trends (1-year, 5-year, etc.) with % change.\n" +
-  "3. **Current Status** – Current price, market cap, and major updates.\n" +
-  "4. **Future Outlook** – Short summary of likely direction and risks.\n" +
-  "5. **Recommendation** – Buy/Hold/Sell with short-term and long-term view.\n" +
-  "6. **Confidence Level** – % confidence in your call.\n\n" +
+  "Use verified, factual, and public financial + technical data (no assumptions). Focus on algorithmic trading signals.\n" +
+  "Avoid long text — output must be compact, numeric, and suitable for a trading bot summary.\n\n" +
 
-  "End with one clear line: 'Final Conclusion: You should buy it at around $90. The chances of profit are 90%.'\n\n" +
+  "### ⚙️ Output Format (Under 10 lines):\n" +
+  "1. **Core Data** – Current Price, 1D / 1W / 1M % change, Volatility %, Beta, Volume trend (↑/↓), Market Cap.\n" +
+  "2. **Technical Indicators** – RSI, MACD Signal (Bullish/Bearish/Neutral), 20/50/200 MA trend, Support/Resistance levels.\n" +
+  "3. **Momentum Snapshot** – Show ASCII bars for momentum/trend (e.g., ▓▓▓░░ or ▲▲▼▲).\n" +
+  "4. **Algo Signal (Short-Term)** – Numeric target range (±%), Stop-Loss, and Signal: Buy / Sell / Hold (🟢🔴🟡).\n" +
+  "5. **Algo Signal (Long-Term)** – 3–6M and 1–3Y CAGR %, risk (1–10), and trend visual.\n" +
+  "6. **Final Verdict** – One concise line:\n" +
+  "   'Short: Buy 🟢 | Long: Buy 🟢 | Target: +18% | Stop-Loss: -5% | Confidence: 91%.'\n\n" +
 
-  "Keep it brief, professional, and numeric wherever possible (price, %, ratio). Avoid speculation.";
-
+  "Keep output machine-readable — no paragraphs. Show data, indicators, and signal clarity for algorithmic decision-making.";
 
 
   const messages = [new HumanMessage({ content: prompt })];
@@ -60,3 +61,4 @@ const prompt =
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
