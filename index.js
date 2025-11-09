@@ -24,22 +24,40 @@ app.post('/build', (req, res) => {
   const assetName = req.body.assetName; 
 
 const prompt =
-  "You are an expert quantitative trader and financial analyst. Analyze the asset: \"" + assetName +
-  "\" — it may be a stock, index, or cryptocurrency.\n\n" +
+   "You are a quantitative financial analyst specializing in algorithmic trading. " +
+"Analyze the asset: \"" + assetName + "\" — it can be a stock, index, forex pair, or cryptocurrency. " +
+"Use only verified, publicly available market data.\n\n" +
 
-  "Use verified, factual, and public financial + technical data (no assumptions). Focus on algorithmic trading signals.\n" +
-  "Avoid long text — output must be compact, numeric, and suitable for a trading bot summary.\n\n" +
+"Generate a structured, numeric, and model-friendly trading report including:\n\n" +
 
-  "### ⚙️ Output Format (Under 10 lines):\n" +
-  "1. **Core Data** – Current Price, 1D / 1W / 1M % change, Volatility %, Beta, Volume trend (↑/↓), Market Cap.\n" +
-  "2. **Technical Indicators** – RSI, MACD Signal (Bullish/Bearish/Neutral), 20/50/200 MA trend, Support/Resistance levels.\n" +
-  "3. **Momentum Snapshot** – Show ASCII bars for momentum/trend (e.g., ▓▓▓░░ or ▲▲▼▲).\n" +
-  "4. **Algo Signal (Short-Term)** – Numeric target range (±%), Stop-Loss, and Signal: Buy / Sell / Hold (🟢🔴🟡).\n" +
-  "5. **Algo Signal (Long-Term)** – 3–6M and 1–3Y CAGR %, risk (1–10), and trend visual.\n" +
-  "6. **Final Verdict** – One concise line:\n" +
-  "   'Short: Buy 🟢 | Long: Buy 🟢 | Target: +18% | Stop-Loss: -5% | Confidence: 91%.'\n\n" +
+"1. **Asset Overview** – Asset type, sector, average volatility (%), and liquidity status (high/medium/low).\n\n" +
 
-  "Keep output machine-readable — no paragraphs. Show data, indicators, and signal clarity for algorithmic decision-making.";
+"2. **Historical Price Behavior** – \n" +
+"   - 1M, 6M, 1Y, and 5Y price changes (%).\n" +
+"   - 52-week high/low levels.\n" +
+"   - Average daily volatility (%).\n" +
+"   - Correlation with benchmark index (if applicable).\n\n" +
+
+"3. **Technical Indicators (Current Values)** – \n" +
+"   - RSI, MACD, Bollinger Bands (upper/lower bands), 50D & 200D MA, EMA crossover signals.\n" +
+"   - Key support/resistance levels.\n" +
+"   - Volume trend (increasing/decreasing vs 30D average).\n\n" +
+
+"4. **Momentum & Signal Analysis** – \n" +
+"   - Identify bullish/bearish patterns.\n" +
+"   - Trend strength score (0–100).\n" +
+"   - Signal confidence (Buy / Sell / Neutral) based on multi-indicator agreement.\n\n" +
+
+"5. **Trade Setup Recommendation** – \n" +
+"   - Suggested Entry Price, Target Price, Stop-Loss.\n" +
+"   - Expected Risk–Reward Ratio.\n" +
+"   - Recommended position type (Long / Short / Wait).\n\n" +
+
+"6. **Confidence Metrics** – \n" +
+"   - Overall confidence level (%) derived from indicator alignment and historical pattern reliability.\n\n" +
+
+"**Final Conclusion:** Summarize your trading stance (e.g., “Bullish bias, high probability of upward continuation in short term”) in one precise, quantitative line.";
+
 
 
   const messages = [new HumanMessage({ content: prompt })];
@@ -61,4 +79,5 @@ const prompt =
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
 
