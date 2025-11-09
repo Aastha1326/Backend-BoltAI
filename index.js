@@ -24,41 +24,20 @@ app.post('/build', (req, res) => {
   const assetName = req.body.assetName; 
 
 const prompt =
-   "You are a quantitative financial analyst specializing in algorithmic trading. " +
-"Analyze the asset: \"" + assetName + "\" — it can be a stock, index, forex pair, or cryptocurrency. " +
-"Use only verified, publicly available market data.\n\n" +
+  "You are an experienced financial analyst. Analyze the asset: \"" + assetName + "\" " +
+  "— it may be a company, stock, or cryptocurrency. Use only verified and public data.\n\n" +
 
-"Generate a structured, numeric, and model-friendly trading report including:\n\n" +
+  "Give a short, structured financial report covering:\n" +
+  "1. **Overview** – Category, sector, brief description.\n" +
+  "2. **Past Performance** – Key price trends (1-year, 5-year, etc.) with % change.\n" +
+  "3. **Current Status** – Current price, market cap, and major updates.\n" +
+  "4. **Future Outlook** – Short summary of likely direction and risks.\n" +
+  "5. **Recommendation** – Buy/Hold/Sell with short-term and long-term view.\n" +
+  "6. **Confidence Level** – % confidence in your call.\n\n" +
 
-"1. **Asset Overview** – Asset type, sector, average volatility (%), and liquidity status (high/medium/low).\n\n" +
+  "End with one clear line: 'Final Conclusion: You should buy it at around $90. The chances of profit are 90%.'\n\n" +
 
-"2. **Historical Price Behavior** – \n" +
-"   - 1M, 6M, 1Y, and 5Y price changes (%).\n" +
-"   - 52-week high/low levels.\n" +
-"   - Average daily volatility (%).\n" +
-"   - Correlation with benchmark index (if applicable).\n\n" +
-
-"3. **Technical Indicators (Current Values)** – \n" +
-"   - RSI, MACD, Bollinger Bands (upper/lower bands), 50D & 200D MA, EMA crossover signals.\n" +
-"   - Key support/resistance levels.\n" +
-"   - Volume trend (increasing/decreasing vs 30D average).\n\n" +
-
-"4. **Momentum & Signal Analysis** – \n" +
-"   - Identify bullish/bearish patterns.\n" +
-"   - Trend strength score (0–100).\n" +
-"   - Signal confidence (Buy / Sell / Neutral) based on multi-indicator agreement.\n\n" +
-
-"5. **Trade Setup Recommendation** – \n" +
-"   - Suggested Entry Price, Target Price, Stop-Loss.\n" +
-"   - Expected Risk–Reward Ratio.\n" +
-"   - Recommended position type (Long / Short / Wait).\n\n" +
-
-"6. **Confidence Metrics** – \n" +
-"   - Overall confidence level (%) derived from indicator alignment and historical pattern reliability.\n\n" +
-
-"**Final Conclusion:** Summarize your trading stance (e.g., “Bullish bias, high probability of upward continuation in short term”) in one precise, quantitative line.";
-
-
+  "Keep it brief, professional, and numeric wherever possible (price, %, ratio). Avoid speculation.";
 
   const messages = [new HumanMessage({ content: prompt })];
 
@@ -79,5 +58,6 @@ const prompt =
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
 
 
